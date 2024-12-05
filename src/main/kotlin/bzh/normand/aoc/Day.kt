@@ -9,8 +9,8 @@ abstract class Day {
 
   fun solution(input: String) {
     val timePart1 = measureTime { solvePart1(input) }
-    val timePart2 = measureTime { solvePart2(input) }
     println("time part1: ${timePart1.inWholeMilliseconds}ms")
+    val timePart2 = measureTime { solvePart2(input) }
     println("time part2: ${timePart2.inWholeMilliseconds}ms")
   }
 }
