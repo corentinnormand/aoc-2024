@@ -19,6 +19,6 @@ class Day6Test {
       ......#...
 
     """.trimIndent())
-    Day6().solution(Utils.getResourceAsText("/day6-2.txt"))
+//    Day6().solution(Utils.getResourceAsText("/day6-2.txt"))
   }
 }

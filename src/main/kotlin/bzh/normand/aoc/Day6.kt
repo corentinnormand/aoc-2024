@@ -67,7 +67,7 @@ class Day6 : Day() {
       .map {
         val newValues = map.toMutableList().map { l -> l.toMutableList() }
         newValues[it.first][it.second] = '#'
-        it to isLooping(startPos, newValues)
+        it to isLooping2(startPos, newValues)
       }
       .filter { it.second }
       .map { it.first }
@@ -80,6 +80,7 @@ class Day6 : Day() {
   fun isLooping(startPos: Pair<Int, Int>, map: List<List<Char>>): Boolean {
     var guard1 = Guard(position = startPos, direction = "UP")
     var guard2 = Guard(position = startPos, direction = "UP")
+    val printMap = map.toMutableList().map { l -> l.toMutableList() }
     while (inBound(guard1.position, map) &&
       inBound(guard2.position, map)
     ) {
@@ -96,21 +97,25 @@ class Day6 : Day() {
     var guard = Guard(position = startPos, direction = "UP")
     val positions = mutableMapOf<Pair<Int, Int>, MutableSet<String>>()
     while (inBound(guard.position, map)) {
+
+      guard = nextPos(guard, map)
+
       if (positions[guard.position]?.contains(guard.direction) == true) {
         return true
       }
-//      if (inBound(guard.position, map)) {
       if (positions[guard.position] == null) {
         positions[guard.position] = mutableSetOf(guard.direction)
       } else {
         positions[guard.position]!!.add(guard.direction)
       }
-//      }
 
-
-      guard = nextPos(guard, map)
     }
     return false
+  }
+
+  private fun printMap(map: List<List<Char>>) {
+    println("===========")
+    println(map.joinToString(separator = "\n") { it.joinToString(separator = "") })
   }
 
   private fun nextPos(
@@ -147,8 +152,5 @@ class Day6 : Day() {
 
   private fun inBound(coords: Pair<Int, Int>, lines: List<List<Char>>): Boolean =
     coords.first in lines.indices && coords.second in lines[0].indices
-
-  private operator fun Pair<Int, Int>.plus(o: Pair<Int, Int>): Pair<Int, Int> =
-    Pair(this.first + o.first, this.second + o.second)
 
 }
